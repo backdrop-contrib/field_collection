@@ -191,7 +191,7 @@ function field_collection_item_load($item_id, $reset = FALSE) {
  *   id.
  */
 function field_collection_item_revision_load($revision_id) {
-  return entity_revision_load('field_collection_item', $revision_id);
+  return entity_plus_revision_load('field_collection_item', $revision_id);
 }
 
 /**

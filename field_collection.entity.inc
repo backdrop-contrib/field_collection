@@ -244,7 +244,7 @@ class FieldCollectionItemEntity extends Entity {
       }
     }
     else {
-      $current_host = entity_revision_load($this->hostEntityType, $this->hostEntityRevisionId);
+      $current_host = entity_plus_revision_load($this->hostEntityType, $this->hostEntityRevisionId);
       list($current_id) = $current_host ? entity_extract_ids($this->hostEntityType, $current_host) : array($recieved_id);
     }
 
@@ -269,7 +269,7 @@ class FieldCollectionItemEntity extends Entity {
         $this->hostEntity = entity_load_single($this->hostEntityType, $this->hostEntityId);
       }
       elseif (!isset($this->hostEntity) && $this->hostEntityRevisionId) {
-        $this->hostEntity = entity_revision_load($this->hostEntityType, $this->hostEntityRevisionId);
+        $this->hostEntity = entity_plus_revision_load($this->hostEntityType, $this->hostEntityRevisionId);
       }
       return $this->hostEntity;
     }
