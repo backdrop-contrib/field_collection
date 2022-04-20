@@ -122,6 +122,20 @@ class FieldCollectionItemEntity extends Entity {
   }
 
   /**
+   * Access callback for entity type.
+   */
+  public function access($op, $account = NULL) {
+    if ($op == 'view') {
+      return TRUE;
+    }
+    elseif ($op == 'edit' || $op == 'update' || $op == 'create') {
+      return user_access('edit field collections');
+    }
+
+    return FALSE;
+  }
+
+  /**
    * Returns the field instance label translated to interface language.
    */
   public function translatedInstanceLabel($langcode = NULL) {
