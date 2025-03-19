@@ -1435,7 +1435,7 @@ function field_collection_entity_translation_source_field_state_alter(&$field_st
     module_load_include('inc', 'entity', 'includes/entity.ui');
     foreach ($field_state['entity'] as $delta => $entity) {
       if ($entity instanceof FieldCollectionItemEntity) {
-        $field_state['entity'][$delta] = entity_ui_clone_entity('field_collection_item', $entity);
+        $field_state['entity'][$delta] = field_collection_clone_entity('field_collection_item', $entity);
       }
     }
   }
@@ -2518,4 +2518,29 @@ function field_collection_feeds_presave(FeedsSource $source, $entity, $item, $en
       }
     }
   }
+}
+
+/**
+ * Clones the entity object and makes sure it will get saved as new entity.
+ *
+ * @return object
+ *   The cloned entity object.
+ */
+function field_collection_clone_entity($entity_type, $entity) {
+  // Clone the entity and make sure it will get saved as a new entity.
+  $entity = clone $entity;
+
+  $entity_info = entity_get_info($entity_type);
+  $entity->{$entity_info['entity keys']['id']} = FALSE;
+  if (!empty($entity_info['entity keys']['name'])) {
+    $entity->{$entity_info['entity keys']['name']} = FALSE;
+  }
+  $entity->is_new = TRUE;
+
+  // Make sure the status of a cloned exportable is custom.
+  if (!empty($entity_info['exportable'])) {
+    $status_key = isset($entity_info['entity keys']['status']) ? $entity_info['entity keys']['status'] : 'status';
+    $entity->$status_key = ENTITY_CUSTOM;
+  }
+  return $entity;
 }
