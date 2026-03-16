@@ -88,6 +88,7 @@ Current Maintainers
 - [Eli Lisseck](https://github.com/elisseck)
 - [Anthony Nemirovsky](https://github.com/anemirovsky)
 - [Peter Haight](https://github.com/Dawnthorn)
+- [Anna Heath](https://github.com/aheathgr)
 
 
 Credits
